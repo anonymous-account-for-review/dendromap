@@ -245,12 +245,11 @@
 		]);
 	}
 	let classClusteringsPresent;
+	let useGCPImages = true; 
 	async function loadPrecomputedClassClustering(classIndex) {
 		root = undefined;
 		classClusteringsPresent = false;
 		// changes from loadAllClustering here
-		clustersEndPoint.set(`data`);
-		imagesEndpoint.set(`images`);
 		HACDataFilename = `${$clustersEndPoint}/${classIndex}_result_tree_and_nodes_${modelName}_${sampleCount}_${fileFormatVersion}.json`;
 		if (setName !== undefined) {
 			HACDataFilename = `${$clustersEndPoint}/${classIndex}_result_tree_and_nodes_${modelName}_${sampleCount}_${fileFormatVersion}_${setName}.json`;
@@ -266,7 +265,7 @@
 	async function loadAllClustering() {
 		root = undefined;
 		clustersEndPoint.set(`data`);
-		imagesEndpoint.set(`images`);
+		imagesEndpoint.set(useGCPImages ? `https://storage.googleapis.com/div-lab-error-summary-image-storage/${selectedDataset}`: `images`);
 		HACDataFilename = `${$clustersEndPoint}/result_tree_and_nodes_${modelName}_${sampleCount}_${fileFormatVersion}.json`;
 		if (setName !== undefined) {
 			HACDataFilename = `${$clustersEndPoint}/result_tree_and_nodes_${modelName}_${sampleCount}_${fileFormatVersion}_${setName}.json`;
