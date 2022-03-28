@@ -336,10 +336,7 @@
 	<div class="sidebar-item">
 		<BigLabel label="Image Details">
 			<div class="image-info">
-				<SimilarImages
-					image={$selectedImage}
-					showSimilarImages={!$hideSimilarMode}
-				/>
+				<SimilarImages image={$selectedImage} showSimilarImages />
 			</div>
 		</BigLabel>
 	</div>

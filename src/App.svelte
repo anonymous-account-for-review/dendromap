@@ -173,7 +173,7 @@
 
 	function silenceConsoleLogs() {
 		console.log("console log is silenced 😴");
-		console.log = () => {};
+		// console.log = () => {};
 	}
 </script>
 

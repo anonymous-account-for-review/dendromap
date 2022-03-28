@@ -52,7 +52,6 @@
 	export let transitionSpeed = 750;
 	export let innerPadding = 0;
 	export let topPadding = 0;
-	export let selectedColor = "lightgrey";
 	export let highlightedOpacity = 1.0;
 	export let hiddenOpacity = 0.25;
 	export let topLabelSpace = 20;
@@ -362,7 +361,10 @@
 		groupRect
 			.selectAll("image")
 			.append("title")
-			.text((d) => `Click to select image ${d.instance_index}`);
+			.text(
+				(d) =>
+					`Click to select image ${d.instance_index}\nactual: ${d.true_class}, pred: ${d.predicted_class}`
+			);
 	};
 
 	/**
@@ -457,7 +459,7 @@
 		})
 			.attr("fill", colorByRemainingHeight) //appends rectColor to d
 			.attr("stroke", (d, i) => {
-				if (i === 0 && d !== data) {
+				if (false && i === 0 && d !== data) {
 					d.strokeColor = d3.color("steelblue").brighter(0.2);
 				} else {
 					d.strokeColor = d.rectColor.darker(0.2);

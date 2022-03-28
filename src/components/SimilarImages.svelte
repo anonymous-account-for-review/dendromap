@@ -9,6 +9,8 @@
 	} from "../stores/globalDataStore";
 	import { imagesEndpoint } from "../stores/endPoints";
 	import Label from "./sidebarComponents/Label.svelte";
+	import { highlightImages, resetOpacity } from "./treemap/highlightImages";
+	import * as d3 from "d3";
 
 	export let image;
 	export let imageWidth = 50;
@@ -17,6 +19,10 @@
 	export let selectedImageWidth = 150;
 	export let showSimilarImages = true;
 	const labelWidth = 150;
+	let imageHover = null;
+
+	$: notHovering = imageHover === null;
+	$: currImage = notHovering ? image : imageHover;
 
 	function imageIsEmpty() {
 		return image === null || image === undefined;
@@ -35,13 +41,13 @@
 						label="Image ID"
 						outerDivStyle="width: {labelWidth}px;"
 					>
-						{handleNull(image?.instance_index)}
+						{handleNull(currImage?.instance_index)}
 					</Label>
 					<Label
 						label="True Class"
 						outerDivStyle="width: {labelWidth}px; "
 					>
-						{handleNull(image?.true_class)}
+						{handleNull(currImage?.true_class)}
 					</Label>
 				</div>
 				{#if !$hidePredictions}
@@ -50,7 +56,7 @@
 							label="Predicted Class"
 							outerDivStyle="width: {labelWidth}px; margin-left: 15px;"
 						>
-							{handleNull(image?.predicted_class)}
+							{handleNull(currImage?.predicted_class)}
 						</Label>
 					</div>
 				{/if}
@@ -59,13 +65,13 @@
 				id="current-image-selection"
 				style="width:{selectedImageWidth}px; height: {selectedImageHeight}px; border: 1px {!imageIsEmpty() &&
 				$showMisclassifications &&
-				!image.correct
+				!currImage.correct
 					? incorrectColor
 					: 'lightgrey'} solid;"
 			>
 				{#if image}
 					<img
-						src="{$imagesEndpoint}/{image.filename}"
+						src="{$imagesEndpoint}/{currImage.filename}"
 						width={selectedImageWidth}
 						height={selectedImageHeight}
 						alt="magnified"
@@ -97,6 +103,20 @@
 									.correct
 									? incorrectColor
 									: 'transparent'} solid; margin-top: 1px; margin-left: 1px;"
+								on:mouseenter={() => {
+									imageHover =
+										$globalLeafNodesObject.idMap.get(
+											simInstanceId
+										);
+									highlightImages({
+										imageGroup: d3.selectAll("image"),
+										instancesToHighlight: [simInstanceId],
+									});
+								}}
+								on:mouseleave={() => {
+									imageHover = null;
+									resetOpacity();
+								}}
 							/>
 						{/each}
 					{/if}
