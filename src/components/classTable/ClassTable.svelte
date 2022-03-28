@@ -2,11 +2,6 @@
 	import { onMount } from "svelte";
 	import { flip } from "svelte/animate";
 	import Bar from "./Bar.svelte";
-	import {
-		incorrectColor,
-		correctColor,
-		globalClasses,
-	} from "../../stores/globalDataStore";
 	import { highlightImages, resetOpacity } from "../treemap/highlightImages";
 	import Label from "../sidebarComponents/Label.svelte";
 	import Rate from "./Rate.svelte";
@@ -381,8 +376,8 @@
 	</div>
 	<div id="container">
 		<table>
-			{#each sortedClasses as className}
-				<tr>
+			{#each sortedClasses as className (className)}
+				<tr animate:flip={{ duration: 750 }}>
 					<td class="class-name">
 						{className}
 					</td>
