@@ -131,6 +131,7 @@
 
 	// load the data and store in the global variables for use in the treemap
 	onMount(async () => {
+		silenceConsoleLogs();
 		await loadAllClustering();
 	});
 
@@ -168,6 +169,11 @@
 		const res = await fetch(HACDataFilename);
 		datafile = await res.json();
 		formatAndStoreData(datafile); // check the contents to see what data is stored
+	}
+
+	function silenceConsoleLogs() {
+		console.log("console log is silenced 😴");
+		console.log = () => {};
 	}
 </script>
 
