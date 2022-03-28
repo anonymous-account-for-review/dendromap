@@ -90,7 +90,7 @@
 	}
 </script>
 
-<div id="sidebar" style="height: {document.body.clientHeight}px">
+<div id="sidebar" style="">
 	<div
 		class="sidebar-item"
 		style="display: flex; justify-content:space-around; margin-top: -8px; text-transform: capitalize;"
@@ -138,7 +138,7 @@
 	<div class="hor-line" />
 
 	<div class="sidebar-item" id="visualization-settings">
-		<BigLabel label="Visualization Settings">
+		<BigLabel label="Settings">
 			<div class="row">
 				{#if !$hideClassFilter}
 					<Label outerDivStyle="width: 120px;" label="Filter Data">
@@ -257,7 +257,7 @@
 					<Label
 						outerDivStyle="width: 200px; margin-left: 25px; opacity: {$showMisclassifications
 							? 1
-							: 0.1}"
+							: 1}"
 						label="Focus Images"
 					>
 						<div style="display: flex; align-items:center;">
@@ -270,7 +270,6 @@
 										!$highlightIncorrectImages
 									);
 								}}
-								disabled={!$showMisclassifications}
 							/>
 							<div
 								style="margin-top: -4px; margin-left:5px; color: {$highlightIncorrectImages
@@ -283,7 +282,7 @@
 					</Label>
 				{/if}
 				{#if !$hideSimilarMode}
-					<Label outerDivStyle="width: 200px;" label="Similar Images">
+					<Label outerDivStyle="width: 250px;" label="Similar Images">
 						<div style="display: flex; align-items:center">
 							<Switch
 								switchSize={30}
@@ -300,7 +299,7 @@
 									? 'hsl(0, 0%, 12%)'
 									: 'lightgrey'}"
 							>
-								Highlight Similar
+								Highlight Similar By Hovering
 							</div>
 						</div>
 					</Label>
@@ -335,7 +334,7 @@
 
 	<div class="hor-line" />
 	<div class="sidebar-item">
-		<BigLabel label="Selected Image">
+		<BigLabel label="Image Details">
 			<div class="image-info">
 				<SimilarImages
 					image={$selectedImage}
@@ -366,7 +365,7 @@
 	#sidebar {
 		border-right: 1.5px solid var(--lighter-grey);
 		margin-right: 10px;
-		height: 1000px;
+		/* height: 1000px; */
 		/* width: 500px; */
 	}
 	.sidebar-item {
