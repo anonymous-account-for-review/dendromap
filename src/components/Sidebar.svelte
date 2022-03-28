@@ -312,7 +312,7 @@
 		<div class="hor-line" />
 		<div class="sidebar-item">
 			<div class="parent-info">
-				<BigLabel label="Summary">
+				<BigLabel label="Class Table">
 					<div>
 						{#if $selectedParent !== null && selectedVisualization === "treemap"}
 							<ClassTable

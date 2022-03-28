@@ -136,7 +136,7 @@
 			sort: (classA, classB) => classB.localeCompare(classA),
 		},
 		{
-			name: "True Label Count",
+			name: "Actual Label Count",
 			class: "bar-count",
 			sort: getTableDescending((d) => d.getTotalCountTrueClass()),
 		},
@@ -146,17 +146,17 @@
 			sort: getTableDescending((d) => d.getTotalCountPredClass()),
 		},
 		{
-			name: "Rate Correct (accuracy)",
+			name: "Accuracy",
 			class: "rate-entry",
 			sort: getTableDescending((d) => d.getAccuracy()),
 		},
 		{
-			name: "Rate True Class and Wrong",
+			name: "False Negative Rate",
 			class: "rate-entry",
 			sort: getTableDescending((d) => d.getTrueClassWrongRate()),
 		},
 		{
-			name: "Rate Predicted Class and Wrong",
+			name: "False Positive Rate",
 			class: "rate-entry",
 			sort: getTableDescending((d) => d.getPredClassWrongRate()),
 		},
@@ -290,30 +290,8 @@
 	};
 </script>
 
-{#if !$hideSummaryClassTable}
-	<div id="total-info">
-		<Label label="Local Accuracy" outerDivStyle="width: 250px;">
-			<BigRate
-				maxColor={blueGreen}
-				normalizedValue={localAccuracy}
-				width={100}
-				fixed={2}
-			/>
-		</Label>
-		{#if $showMisclassifications}
-			<Label label="Global Error Coverage" outerDivStyle="width: 350px;">
-				<BigRate
-					maxColor={orangeRed}
-					normalizedValue={globalCoverage}
-					fixed={2}
-					width={100}
-				/>
-			</Label>
-		{/if}
-	</div>
-{/if}
 <div id="table-settings">
-	<Label label="Search Class in Table" outerDivStyle="margin-right: 50px;">
+	<Label label="Search" outerDivStyle="margin-right: 50px;">
 		<input
 			type="text"
 			name="class-search"

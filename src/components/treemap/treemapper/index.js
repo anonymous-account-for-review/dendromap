@@ -379,7 +379,6 @@ export function kClustersTreeMap(
 		// pop queue as the current parent
 		let currParent = queue.pop();
 		currParent.isLeaf = false;
-		clustersShowing--; // means this will no longer be displayed as a cluster so decrement
 
 		const isLeaf =
 			currParent.children === undefined ||
@@ -391,7 +390,6 @@ export function kClustersTreeMap(
 
 		// add the children to the queue
 		childIter: for (let i = 0; i < currParent.children.length; i++) {
-			clustersShowing++; // show this child as a cluster so increment
 			if (clustersShowing > kClusters) break childIter; // if we already placed enough clusters, break out
 
 			// to iterate these next add them to the queue
@@ -410,6 +408,7 @@ export function kClustersTreeMap(
 			currParent.y1,
 			{ imageHeight, imageWidth }
 		);
+		clustersShowing++;
 	}
 	return toRender;
 }
