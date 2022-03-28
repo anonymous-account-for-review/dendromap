@@ -158,7 +158,7 @@
 		clustersEndPoint.set(`data`);
 		imagesEndpoint.set(
 			useGCPImages
-				? `https://storage.googleapis.com/div-lab-error-summary-image-storage/${selectedDataset}`
+				? `https://storage.googleapis.com/anonymous-for-review/${selectedDataset}`
 				: `images`
 		);
 		HACDataFilename = `${$clustersEndPoint}/result_tree_and_nodes_${modelName}_${sampleCount}_${fileFormatVersion}.json`;
