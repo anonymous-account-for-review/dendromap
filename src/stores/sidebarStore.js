@@ -31,7 +31,7 @@ export const isZoomedIn = writable(false);
 // user study global variables
 export const hideClassTable = writable(false);
 export const hideSummaryClassTable = writable(false);
-export const hideLabelCoverage = writable(false);
+export const hideLabelCoverage = writable(true);
 export const hideLabelAccuracy = writable(false);
 export const highlightIncorrectImages = writable(false);
 export const hideSimilarMode = writable(false);
