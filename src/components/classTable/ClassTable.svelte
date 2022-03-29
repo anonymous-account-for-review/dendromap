@@ -580,7 +580,7 @@
 	#class-search {
 		width: 148px;
 		height: 30px;
-		background-image: url("http://localhost:3000/search_black_24dp.svg");
+		background-image: url("search_black_24dp.svg");
 		background-repeat: no-repeat;
 		background-position: left center;
 		padding-left: 25px;
