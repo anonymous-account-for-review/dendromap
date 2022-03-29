@@ -29,5 +29,5 @@ npm install       # install packages
 npm run dev       # run the development server
 ```
 
-then navigate to [http://localhost:3000/](http://localhost:8080/)
+then navigate to [http://localhost:8080/](http://localhost:8080/)
 
