@@ -15,6 +15,7 @@
 	export let classes;
 	export let nodes;
 	export let clickClassName;
+	export let tweenRows = false;
 	$: {
 		console.log("class-table", classes, nodes);
 	}
@@ -354,8 +355,8 @@
 	</div>
 	<div id="container">
 		<table>
-			{#each sortedClasses as className (className)}
-				<tr animate:flip={{ duration: 750 }}>
+			{#each sortedClasses as className}
+				<tr>
 					<td class="class-name">
 						{className}
 					</td>

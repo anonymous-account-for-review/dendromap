@@ -114,11 +114,43 @@
 
 	// default settings
 	let selectedVisualization = "treemap";
-	let selectedDataset = "cifar10";
+	let selectedDataset = "cifar100";
 	let sampleCount = 0;
 	let modelName = "resnet50";
-	let fileFormatVersion = 82;
+	let fileFormatVersion = 81;
 	let setName = undefined;
+
+	function datasetSelector({
+		name,
+		model,
+		layersCountingBackwards,
+		fileFormat = "8",
+	} = {}) {
+		return async () => {
+			root = undefined;
+			classClusteringsPresent = false;
+
+			// main selection
+			selectedDataset = name;
+			modelName = model;
+			fileFormatVersion = +`${fileFormat}${layersCountingBackwards}`;
+
+			classClusteringsPresent = true;
+			await loadAllClustering();
+		};
+	}
+
+	const selectCifar100 = datasetSelector({
+		name: "cifar100",
+		model: "resnet50",
+		layersCountingBackwards: 1,
+	});
+
+	const selectCifar10 = datasetSelector({
+		name: "cifar10",
+		model: "resnet50",
+		layersCountingBackwards: 2,
+	});
 
 	// app variables for data
 	let root;
@@ -132,14 +164,13 @@
 	// load the data and store in the global variables for use in the treemap
 	onMount(async () => {
 		silenceConsoleLogs();
-		await loadAllClustering();
 	});
 
 	let classClusteringsPresent;
 	let useGCPImages = true;
 	async function loadPrecomputedClassClustering(classIndex) {
 		root = undefined;
-		clustersEndPoint.set(`data/class_clusterings/${selectedDataset}`);
+		clustersEndPoint.set(`data/${selectedDataset}/class_clusterings`);
 		classClusteringsPresent = false;
 		// changes from loadAllClustering here
 		HACDataFilename = `${$clustersEndPoint}/${classIndex}_result_tree_and_nodes_${modelName}_${sampleCount}_${fileFormatVersion}.json`;
@@ -174,7 +205,26 @@
 
 	function silenceConsoleLogs() {
 		console.log("console log is silenced 😴");
-		// console.log = () => {};
+		console.log = () => {};
+	}
+
+	let changedDataset = false;
+	$: {
+		const a = async () => {
+			changedDataset = await true;
+			switch (selectedDataset) {
+				case "cifar10":
+					await selectCifar10();
+					break;
+				case "cifar100":
+					await selectCifar100();
+					break;
+				default:
+					break;
+			}
+			changedDataset = await false;
+		};
+		a();
 	}
 </script>
 
@@ -200,11 +250,12 @@
 				visualizationOptions={validVisualizations}
 				initialVisualizationChoice={selectedVisualization}
 				{modelName}
-				{selectedDataset}
+				bind:selectedDataset
 				{classClusteringsPresent}
 				task={valueTask}
 				_interface={valueInterface}
 				set={valueSet}
+				{changedDataset}
 			/>
 		{/if}
 	</div>

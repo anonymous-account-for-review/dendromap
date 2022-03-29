@@ -41,11 +41,13 @@
 	export let name = "Error Browser";
 	export let modelName;
 	export let selectedDataset;
+	export let animateClassTable = false;
 
 	// optional if we are in the user study
 	export let task;
 	export let set;
 	export let _interface;
+	export let changedDataset = false;
 
 	$: cpyClasses = classes ? classes.map((className) => className) : [];
 	const copyClasses = () =>
@@ -93,17 +95,20 @@
 <div id="sidebar" style="">
 	<div
 		class="sidebar-item"
-		style="display: flex; justify-content:space-around; margin-top: -8px; text-transform: capitalize;"
+		style="display: flex; margin-top: -8px; justify-content:space-around; text-transform: capitalize;"
 	>
 		{#if !$hideGlobalDetails}
-			<Label outerDivStyle="width: 100px;" label="Dataset"
-				>{selectedDataset}</Label
-			>
-			<Label outerDivStyle="width: 100px; " label="Model"
+			<Label outerDivStyle="width: 110px;" label="Dataset">
+				<select bind:value={selectedDataset}>
+					<option value={"cifar100"}>cifar100</option>
+					<option value={"cifar10"}>cifar10</option>
+				</select>
+			</Label>
+			<Label outerDivStyle="width: 95px; " label="Model"
 				>{modelName}</Label
 			>
 			{#if selectedVisualization === "treemap"}
-				<Label outerDivStyle="width: 100px;" label="Visualization"
+				<Label outerDivStyle="width: 95px;" label="Visualization"
 					>Treemap</Label
 				>
 			{:else if selectedVisualization === "grid"}
@@ -158,7 +163,7 @@
 								dispatch("filterClass", null);
 							}}
 							style=""
-							placeholder="class..."
+							placeholder="find class"
 							items={cpyClasses ? cpyClasses : []}
 							initialValue={$currentClassFilter}
 							isClearable
@@ -313,11 +318,12 @@
 			<div class="parent-info">
 				<BigLabel label="Class Table">
 					<div>
-						{#if $selectedParent !== null && selectedVisualization === "treemap"}
+						{#if $selectedParent !== null && selectedVisualization === "treemap" && !changedDataset}
 							<ClassTable
 								nodes={$selectedParent.cluster}
 								classes={copyClasses()}
 								{clickClassName}
+								tweenRows={animateClassTable}
 							/>
 						{:else if $currentNodesShowing.length && selectedVisualization === "grid"}
 							<ClassTable
@@ -385,5 +391,16 @@
 	}
 	.on {
 		color: #0275ff;
+	}
+	select {
+		border: none;
+		border-left: 2px solid black;
+		font: inherit;
+		cursor: pointer;
+	}
+	select:focus {
+		border: none;
+		outline: none;
+		border-left: 2px solid steelblue;
 	}
 </style>
