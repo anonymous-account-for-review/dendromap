@@ -139,6 +139,7 @@
 	let useGCPImages = true;
 	async function loadPrecomputedClassClustering(classIndex) {
 		root = undefined;
+		clustersEndPoint.set(`data/class_clusterings/${selectedDataset}`);
 		classClusteringsPresent = false;
 		// changes from loadAllClustering here
 		HACDataFilename = `${$clustersEndPoint}/${classIndex}_result_tree_and_nodes_${modelName}_${sampleCount}_${fileFormatVersion}.json`;
@@ -155,7 +156,7 @@
 	}
 	async function loadAllClustering() {
 		root = undefined;
-		clustersEndPoint.set(`data`);
+		clustersEndPoint.set(`data/${selectedDataset}`);
 		imagesEndpoint.set(
 			useGCPImages
 				? `https://storage.googleapis.com/anonymous-for-review/${selectedDataset}`
