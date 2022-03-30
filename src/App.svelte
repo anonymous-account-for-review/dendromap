@@ -261,7 +261,7 @@
 	</div>
 	<div id="vis">
 		{#if root}
-			<OurTreemap width={1200} height={$totalHeight} />
+			<OurTreemap width={$totalHeight} height={$totalHeight} />
 		{:else}
 			<p>Loading {selectedDataset} dataset...</p>
 		{/if}

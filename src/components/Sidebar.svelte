@@ -95,27 +95,18 @@
 <div id="sidebar" style="">
 	<div
 		class="sidebar-item"
-		style="display: flex; margin-top: -8px; justify-content:space-around; text-transform: capitalize;"
+		style="display: flex; margin-top: -8px; justify-content: start; text-transform: capitalize;"
 	>
 		{#if !$hideGlobalDetails}
 			<Label outerDivStyle="width: 110px;" label="Dataset">
 				<select bind:value={selectedDataset}>
-					<option value={"cifar100"}>cifar100</option>
-					<option value={"cifar10"}>cifar10</option>
+					<option value={"cifar100"}>CIFAR-100</option>
+					<option value={"cifar10"}>CIFAR-10</option>
 				</select>
 			</Label>
-			<Label outerDivStyle="width: 95px; " label="Model"
-				>{modelName}</Label
+			<Label outerDivStyle="width: 95px; margin-left: 40px;" label="Model"
+				>{modelName === "resnet50" ? "ResNet50" : modelName}</Label
 			>
-			{#if selectedVisualization === "treemap"}
-				<Label outerDivStyle="width: 95px;" label="Visualization"
-					>Treemap</Label
-				>
-			{:else if selectedVisualization === "grid"}
-				<Label outerDivStyle="width: 100px;" label="Visualization"
-					>Task</Label
-				>
-			{/if}
 		{:else}
 			<Label outerDivStyle="width: 100px;" label="Current Task"
 				>task {task}</Label

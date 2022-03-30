@@ -137,12 +137,12 @@
 			sort: (classA, classB) => classB.localeCompare(classA),
 		},
 		{
-			name: "Actual Label Count",
+			name: "Count\n(Actual)",
 			class: "bar-count",
 			sort: getTableDescending((d) => d.getTotalCountTrueClass()),
 		},
 		{
-			name: "Predicted Label Count",
+			name: "Count\n(Predicted)",
 			class: "bar-count",
 			sort: getTableDescending((d) => d.getTotalCountPredClass()),
 		},
@@ -347,8 +347,14 @@
 							selectedSort = index;
 							console.log(tableLegend[selectedSort]);
 						}}
-						class={nameObj.class}>{nameObj.name}</th
+						class={nameObj.class}
 					>
+						{#if nameObj.name.includes("\n")}
+							<pre>{nameObj.name}</pre>
+						{:else}
+							{nameObj.name}
+						{/if}
+					</th>
 				{/each}
 			</tr>
 		</table>
@@ -592,5 +598,9 @@
 	}
 	#class-search:focus {
 		border-color: black;
+	}
+	pre {
+		font: inherit;
+		text-overflow: inherit;
 	}
 </style>
