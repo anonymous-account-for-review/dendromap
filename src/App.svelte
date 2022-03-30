@@ -263,7 +263,7 @@
 		{#if root}
 			<OurTreemap width={$totalHeight} height={$totalHeight} />
 		{:else}
-			<p>Loading {selectedDataset} dataset...</p>
+			<p>Loading dataset...</p>
 		{/if}
 	</div>
 </div>
