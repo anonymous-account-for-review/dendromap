@@ -19,9 +19,9 @@ You can use the class table to analyze counts and error at a class level for the
 
 You can click on an image in the `DendroMap` to reveal details about the image in the sidebar. This section is used to get the file id, actual class, and predicted class of an image. It also contains a list of similar images which can be used to find similar or counterfactual exmaples.
 
-*In this particular deployment, the image representations that were clustered came from a high-dimensional vector from a REsnet-50 model trained on cifar10 images.*
+*In this particular deployment, you can select to use to use image representation from a ResNet-50 model trained on CIFAR-100 images or a ResNet-50 model trained on CIFAR-10 images.*
 
-### Rum Locally
+### Run Locally
 
 ```bash
 cd dendromap      # inside the dendromap directory
